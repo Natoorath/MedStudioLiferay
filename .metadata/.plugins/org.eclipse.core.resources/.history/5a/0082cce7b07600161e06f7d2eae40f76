@@ -1,0 +1,41 @@
+package pl.com.mds.dokumenty;
+
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.xml.namespace.QName;
+
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+import com.sun.jmx.snmp.Enumerated;
+
+/**
+ * Portlet implementation class DocumentsControler
+ */
+public class DocumentsControler extends MVCPortlet {
+ 
+	public void sendFilter(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
+		javax.xml.namespace.QName qName = new QName("documents", "empinfo", "x");
+	    
+		String filtr = "";
+		Map<String, String[]> mapaRequest = request.getParameterMap();
+		
+		String titleSearch = request.getParameter("nazwaDokumentu");
+		if (titleSearch != null && !titleSearch.equals("")) {
+			filtr += "tytul" + titleSearch + ", ";
+		} else {
+			filtr += "";
+		}
+		System.out.println("filtr " + mapaRequest.keySet() + ";");
+		for (String key : mapaRequest.keySet()) {
+			if (key.startsWith("typ_")) {
+				filtr += key.substring(4) + ", ";
+			}
+		}
+		
+		response.setEvent(qName, filtr);
+	    return ;
+	}
+}

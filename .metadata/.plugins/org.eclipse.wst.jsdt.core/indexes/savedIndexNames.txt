@@ -1,0 +1,9 @@
+INDEX VERSION 1.3+D:\PSE_Internet\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2697594564.index
+821192607.index
+2224603179.index
+2225035097.index
+472927922.index
+1317922761.index
+519200189.index
+2895241373.index

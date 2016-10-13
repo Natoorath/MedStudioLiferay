@@ -1,0 +1,105 @@
+<%@page import="com.liferay.portal.service.GroupLocalServiceUtil"%>
+<%@page import="com.liferay.portal.model.Group"%>
+<%@page import="javax.portlet.RenderResponse"%>
+<%@page import="javax.portlet.RenderRequest"%>
+<%@page import="com.liferay.portal.kernel.exception.SystemException"%>
+<%@page import="java.io.IOException"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="pl.com.mds.dokumenty.DocumentsLocalServiceUtil"%>
+<%@page import="com.liferay.portal.util.PortletKeys"%>
+<%@page import="com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"%>
+<%@page import="com.liferay.portlet.documentlibrary.model.DLFolder"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.dao.orm.DynamicQuery"%>
+<%@page import="com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array"%>
+<%@ include file="init.jsp" %>
+
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
+<theme:defineObjects/>
+
+<portlet:actionURL name="sendFilter" var="sendFilterURL" />
+<portlet:actionURL name="sendFolderInfo" var="sendFolderURL" />
+	
+<h4>SZUKAJ PO NAZWIE DOKUMENTU</h4>
+	
+<aui:form action="<%= sendFilterURL.toString() %>" method="post">
+	<div id="filtrTop">
+		<div id="filtrujDokumenty" >
+			<aui:input title="Nazwa dokumentu" label="" name="nazwaDokumentu" type="text" value="" placeholder="Wpisz nazwę" inlineLabel="left" showRequiredLabel=""></aui:input>
+		</div>
+		<aui:button cssClass="btn btn-danger" type="submit" value="SZUKAJ"/>
+		<input class="css-checkbox" id="searchInSelected" type="checkbox" name=""/>
+		<label class="css-label red-checkbox" for="searchInSelected">Szukaj w wybranych</label>
+	</div>
+	<div id="main-sidebar">
+		${folderList}
+	</div>
+</aui:form>
+
+<script> 
+jQuery(document).ready(function ($) {
+    // main sidebar
+    var accordionsMenu = $('.cd-accordion-menu');
+    var userAgent = window.navigator.userAgent;
+    var msie = userAgent.indexOf("MSIE ");
+    
+    if (!(msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))) { 
+        if( accordionsMenu.length > 0 ) {
+            
+            accordionsMenu.each(function(){
+                var accordion = $(this);
+                //detect change in the input[type="checkbox"] value
+                accordion.on('change', '.menu-checkbox', function(){
+                    var checkbox = $(this);
+                    //console.log(checkbox.prop('checked'));             
+                    ( checkbox.prop('checked') ) ? checkbox.siblings('ul').attr('style', 'display:none;').slideDown(300) : checkbox.siblings('ul').attr('style', 'display:block;').slideUp(300);
+                });
+            });
+        }
+    // main sidebar end
+    }
+    
+    
+}); 
+
+function <portlet:namespace/>menuHrefClicked(event) {
+	//Only this prevents IE10 from collapsing menu
+	event.preventDefault();
+	window.location.href = event.target.href;
+}
+
+var checkedCount = 0;
+
+AUI().use('aui-io-request-deprecated', 'aui-button', 'aui-node', 'aui-anim', function(A){
+	$('.cd-accordion-menu').each(function(){
+		var accordion = $(this);
+		accordion.on('change', '.css-checkbox', function(){
+			var checkbox = $(this);
+			
+			if (A.one('input[class="css-checkbox"]:checked') == null) {
+				A.one('#filtrTop .css-label.red-checkbox').style("display", "block");
+				var myAnim = new A.Anim({
+				    node: '#filtrTop .css-label.red-checkbox',
+				    to: {
+				    	"opacity": "0"
+				    },
+				    duration:0.1
+				}).run();
+			} else {
+				var myAnim = new A.Anim({
+				    node: '#filtrTop .css-label.red-checkbox',
+				    to: {
+				    	"opacity": "1"
+				    },
+				    duration:0.1
+				}).run();
+				A.one('#filtrTop .css-label.red-checkbox').style("display", "none");
+			}
+		});
+	});
+});
+</script>

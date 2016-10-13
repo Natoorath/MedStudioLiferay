@@ -1,0 +1,103 @@
+AUI.add(
+	'liferay-workflow-tasks',
+	function(A) {
+		var WorkflowTasks = {
+			onTaskClick: function(event, randomId) {
+				var instance = this;
+
+				var icon = event.currentTarget;
+				var li = icon.get('parentNode');
+
+				event.preventDefault();
+
+				var content = null;
+				var showComments = false;
+
+				if (li.hasClass('task-due-date-link')) {
+					content = '#' + randomId + 'updateDueDate';
+				}
+				else if (li.hasClass('task-assign-to-me-link')) {
+					content = '#' + randomId + 'updateAsigneeToMe';
+				}
+				else if (li.hasClass('task-assign-link')) {
+					content = '#' + randomId + 'updateAsignee';
+					showComments = true;
+				} else {
+					showComments = true;
+				}
+
+				title = icon.text();
+
+				WorkflowTasks.showPopup(icon.attr('href'), A.one(content), title, randomId, showComments);
+			},
+
+			showPopup: function(url, content, title, randomId, showComments) {
+				var form = A.Node.create('<form />');
+
+				form.setAttribute('action', url);
+				form.setAttribute('method', 'POST');
+
+				var comments = A.one('#' + randomId + 'updateComments');
+				
+				if (content) {
+					form.append(content);
+					content.show();
+				}
+
+				if (comments) {
+					form.append(comments);
+					comments.show();
+				}
+				
+				var dialog = Liferay.Util.Window.getWindow(
+						{
+							dialog: {
+								bodyContent: form,
+								height: 420,
+								toolbars: {
+									footer: [
+										{
+											label: Liferay.Language.get('ok'),
+											on: {
+												click: function() {
+													if(form.getAttribute("action").indexOf("transitionName=reject") !== -1) {
+														if(form.one('textarea').get('value').length === 0) {
+															alert(Liferay.Language.get('workflow-reject-reason-cannot-be-empty'));
+															return;
+														}
+													}
+													submitForm(form);
+												}
+												
+											}
+										},
+										{
+											label: Liferay.Language.get('cancel'),
+											on: {
+												click: function() {
+													dialog.hide();
+												}
+											}
+										}
+									]
+								},
+								width: 350
+							},
+							title: Liferay.Util.escapeHTML(title)
+						}
+					);
+				
+				if (showComments == false) {
+					submitForm(form);
+					dialog.hide();
+				}
+			}
+		};
+
+		Liferay.WorkflowTasks = WorkflowTasks;
+	},
+	'',
+	{
+		requires: ['liferay-util-window']
+	}
+);

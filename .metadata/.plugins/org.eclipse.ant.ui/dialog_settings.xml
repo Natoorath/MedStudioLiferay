@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ant.internal.ui.views.AntView">
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;antView&gt;&#x0D;&#x0A;&lt;project default=&quot;deploy&quot; error=&quot;false&quot; name=&quot;welcome-theme&quot; path=&quot;/welcome-theme/build.xml&quot; warning=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;project default=&quot;deploy&quot; error=&quot;false&quot; name=&quot;portal-hook&quot; path=&quot;/portal-hook/build.xml&quot; warning=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;filterInternalTargets value=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;/antView&gt;" key="memento"/>
+	</section>
+</section>

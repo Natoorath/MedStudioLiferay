@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+#parse ($init)
+
+<html class="$root_css_class" dir="#language ("lang.dir")" lang="$w3c_language_id">
+
+<head>
+	<title>$the_title - $company_name</title>
+
+	<meta content="initial-scale=1.0, width=device-width" name="viewport" />
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta id="viewport-meta" name="viewport" content="width=device-width, initial-scale=1">
+    
+    $theme.include($top_head_include)
+
+	#js("$javascript_folder/jquery-2.2.2.min.js")
+	#js("$javascript_folder/theme.js")
+	#js("$javascript_folder/jquery.nav.js")
+	
+	#if($css_class.contains("mourning"))
+		#js("$javascript_folder/grayscale.js")
+	#end
+	
+</head>
+
+<body class="$css_class">
+
+#set($homeURL = $themeDisplay.getPathFriendlyURLPublic() + $themeDisplay.getScopeGroup().getFriendlyURL())
+
+#set ($showCookiesInfo = true)
+#set ($cookies = $request.getCookies())
+#foreach($cookie in $cookies)
+	#if($cookie.getName() eq "eu_cookieClosed")
+		#set($showCookiesInfo = false)
+	#end  
+#end 
+#if ($showCookiesInfo eq true)
+	#set($cookieContentId = $themeDisplay.getThemeSetting("cookie-web-content-id"))
+	#set($cookieArticleContent = $journalContentUtil.getContent($group_id, $cookieContentId, "view", "$locale", $themeDisplay))
+	#if($cookieArticleContent)
+		<div id="eu_cookies" class="cookie-info-container">
+			<div class="cookie-info">
+				<span>
+					$cookieArticleContent
+				</span>
+				<button id="eu_cookieClose" class="btn btn-primary" onclick="hideCookieInfo();">
+					#language("cookie-accept")
+				</button>
+			</div>
+		</div>
+	#end
+#end
+
+<a href="#main-content" id="skip-to-content">#language ("skip-to-content")</a>
+
+$theme.include($body_top_include)
+
+#if($is_signed_in)
+	#dockbar()
+#end
+
+	<div id="upper-menu">
+		<div id="fw-top">
+	      <div class="container">
+	        <div class="row">
+	            <div class="span4" id="top-logo">
+	              <a href="$homeURL">
+	              	<div id="logo">
+	              		<img alt="$logo_description" height="$site_logo_height" src="$site_logo" width="$site_logo_width" />
+	              		#if($css_class.contains("mourning"))
+	              			<img src="$images_folder/color_schemes/mourning/wstazka.png" class="mourning-ribbon"/>
+	              		#elseif($css_class.contains("christmas"))
+	              			<img src="$images_folder/color_schemes/christmas/christmasHeader.jpg"/>
+	              		#elseif($css_class.contains("easter"))
+	              			<img src="$images_folder/color_schemes/easter/easterHeader.jpg"/>
+	              		#elseif($css_class.contains("patriot"))
+	              			<img src="$images_folder/color_schemes/patriot/patriotHeader.jpg"/>
+	              		#end
+	              	</div>
+	              </a>
+	            </div>
+	            <div class="span8" id="top-tools">
+	              <div id="menu-trigger">
+	                <button>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+	              </div>
+	              
+	              #set($showBip = $themeDisplay.getThemeSetting("show-bip-icon"))       
+		          #set($keywords = $request.getParameter("_3_keywords"))
+	              #if($showBip eq true)
+                	<div class="top-element">
+                  		<a href="/bip"><img src="$images_folder/pse/bip.png" alt="bip"/></a>
+                	</div>
+            	  #end
+	              <div class="top-element">
+	              	<form id="topSearchForm" class="search-form pse-search form" method="get" action="/web$layout.getGroup().friendlyURL" onsubmit="event.preventDefault();">
+	              		<input name="p_p_id" value="3" type="hidden"/>
+	              		<input name="p_p_lifecycle" value="0" type="hidden"/>
+	              		<input name="p_p_state" value="maximized" type="hidden"/>
+	              		<input name="p_p_mode" value="view" type="hidden"/>
+	              		<input name="_3_groupId" value="$themeDisplay.getSiteGroupId()" type="hidden"/>
+	              		<input name="_3_struts_action" value="/search/search" type="hidden"/>
+	              		<span class="control-group">
+							<input placeholder="#language('search')..." type="search" name="_3_keywords" value="#if($keywords)$keywords#end"/><!-- no space
+					 --></span><!-- no space
+					 --><input value="#language('search')" name="submit-search" class="btn btn-danger" type="submit" />
+					 	#*<a href="javascript:{}" onclick="goToAdvanedSearch();" class="advanced-search">#language('advanced-search') >></a>*#
+					</form>
+				  </div>
+				  #set($showFlags = $themeDisplay.getThemeSetting("show-lang-flags"))
+				  #if($showFlags eq true)
+		              <div class="top-element">
+		                <a href="$themeDisplay.getThemeSetting("pl-flag-url")"><img src="$images_folder/pse/lang-pl.png" /></a>
+		              </div>
+		              <div class="top-element">
+		                <a href="$themeDisplay.getThemeSetting("eng-flag-url")"><img src="$images_folder/pse/lang-en.png" /></a>
+		              </div>
+		          #end
+	            </div>
+	        </div>
+	      </div>
+	    </div>
+
+		#if ($has_navigation || $is_signed_in)
+			#parse ("$full_templates_path/navigation.vm")
+		#end
+	
+	</div>
+
+	<div id="content">
+		#set($home = $themeDisplay.getURLCurrent())
+		#set($portal = $themeDisplay.getURLPortal())
+		#if($layout.getFriendlyURL($locale).equals("/home"))
+			#if(!$home.contains("p_p_id"))		
+				#if($home.contains("inwestycje"))   ## Prawdopodobnie do zmiany $home na $portal w ostatecznej wersji !!
+					<ul class="page-position">
+						<li class="current">
+							<a href="#fw-top"></a>
+						</li>
+						<li>
+							<a href="#piec_kolumn"></a>
+						</li>
+						<li>
+							<a href="#aktualnosci"></a>
+						</li>
+						<li>
+							<a href="#realizowane_inwestycje"></a>
+						</li>
+						<li>
+							<a href="#zamowienia"></a>
+						</li>
+					</ul>
+				#elseif ($home.contains("innowacje"))   ## Prawdopodobnie do zmiany $home na $portal w ostatecznej wersji !!
+					<ul class="page-position">
+						<li class="current">
+							<a href="#fw-top"></a>
+						</li>
+						<li>
+							<a href="#piec_kolumn"></a>
+						</li>
+						<li>
+							<a href="#aktualnosci"></a>
+						</li>
+						<li>
+							<a href="#zamowienia"></a>
+						</li>
+					</ul>
+				#elseif ($home.contains("pse-eng"))
+					<ul class="page-position">
+						<li class="current">
+							<a href="#fw-top"></a>
+						</li>
+						<li>
+							<a href="#portlet_ksemapdisplay_WAR_pseksemapportlet"></a>
+						</li>
+						<li>
+							<a href="#aktualnosci"></a>
+						</li>
+						<li>
+							<a href="#zamowienia"></a>
+						</li>
+					</ul>
+				#else
+					<ul class="page-position">
+						<li class="current">
+							<a href="#fw-top"></a>
+						</li>
+						<li>
+							<a href="#piec_kolumn"></a>
+						</li>
+						<li>
+							<a href="#portlet_ksemapdisplay_WAR_pseksemapportlet"></a>
+						</li>
+						<li>
+							<a href="#konsultacje"></a>
+						</li>
+						<li>
+							<a href="#aktualnosci"></a>
+						</li>
+						<li>
+							<a href="#zamowienia"></a>
+						</li>
+					</ul>
+				#end
+			#end
+		#else		
+			<nav id="breadcrumbs">
+				$theme.runtime("73", "", "<portlet-preferences><preference><name>showCurrentPortlet</name><value>true</value></preference><preference><name>showParentGroups</name><value>true</value></preference><preference><name>showCurrentGroup</name><value>false</value></preference><preference><name>showGuestGroup</name><value>false</value></preference><preference><name>showPortletBreadcrumb</name><value>true</value></preference><preference><name>displayStyle</name><value>horizontal</value></preference><preference><name>showLayout</name><value>true</value></preference></portlet-preferences>")
+			</nav>
+		#end
+		#if($layout.getFriendlyURL($locale).equals("/home"))
+			<style>
+				.aui body{
+					background: white !important;
+				}
+			</style>
+		#end
+		
+		#if ($selectable)
+			$theme.include($content_include)
+		#else
+			$portletDisplay.recycle()
+
+			$portletDisplay.setTitle($the_title)
+
+			$theme.wrapPortlet("portlet.vm", $content_include)
+		#end
+	</div>
+
+	<footer>
+		#set($footerContentId = $themeDisplay.getThemeSetting("footer-web-content-id"))
+		#set($footerArticleContent = $journalContentUtil.getContent($group_id, $footerContentId, "view", "$locale", $themeDisplay))
+		
+		<div class="container">
+			<div class="row">
+				<div class="span3 span3-contact">
+					<h3>#language('contact')</h3>
+					$themeDisplay.getThemeSetting("contact-html")					
+				</div>
+				#if($footerArticleContent)
+					$footerArticleContent
+				#end
+			</div>
+			#if($themeDisplay.getThemeSetting("show-newsletter-portlet") eq true)
+				<div class="row">
+					<div class="span3 newsletter-row">
+						$theme.runtime("customnewsletter_WAR_customnewsletterencryptedportlet", '', $velocityPortletPreferences.toString())
+					</div>
+				</div>
+			#end
+			<div class="row last-row">
+				<div class="span12">
+					<p>Copyright</p>
+				</div>
+			</div>
+		</div>
+    </footer>
+    
+<script>
+	AUI().use("aui-base", function(A) {
+		var form = A.one('#topSearchForm');
+		
+		form.on(
+			'submit',
+			function(event) {
+				submitForm(form);
+			}
+		);
+	});
+	
+</script>
+
+$theme.include($body_bottom_include)
+
+$theme.include($bottom_include)
+
+#js("$javascript_folder/lightbox.min.js")
+#js("$javascript_folder/jquery.nicescroll.js")
+
+
+
+
+</body>
+
+</html>

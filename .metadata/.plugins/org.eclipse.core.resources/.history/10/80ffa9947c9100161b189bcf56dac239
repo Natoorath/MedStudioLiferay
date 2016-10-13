@@ -1,0 +1,91 @@
+$(document).ready(function ($) {
+	
+	if (($(window).width() > 1099)) {
+		 $("body").niceScroll({
+			 mousescrollstep:50,
+			 zindex:1000,
+			 cursorwidth:"10px",		 
+		 });
+	} 
+
+    $(document).on('click', '#menu-trigger button', function() {
+        $('#fw-nav.top-nav').slideToggle();
+    });
+    
+    $("#topSearchForm").on('submit', function(e) {	
+    	if($('#topSearchForm input[name=_3_keywords]').val().replace(/ /g,"").length < 3) {
+    		$('#topSearchForm .control-group').addClass('error');
+    		e.preventDefault();
+    	}
+    });
+    
+    $('#fw-nav').addClass('original').clone().insertAfter('#fw-nav').addClass('cloned').css('position','fixed').css('top','0').css('background-color','rgba(255,255,255,0.7)').css('margin-top','0').css('z-index','320').removeClass('original').hide();
+    scrollIntervalID = setInterval(stickIt, 10);
+        
+    if ($('.navbar-inner').is(":visible")) {
+    	$('#fw-top').css("padding-top", "50px"); 
+        $('.top-nav.cloned').css("padding-top", "50px");
+    } else {
+    	$('#fw-top').css("padding-top", "20px");
+    	$('.top-nav.cloned').css("padding-top", "20px");
+    }
+    
+    function stickIt() {
+      var orgElementPos = $('.original').offset();
+      orgElementTop = orgElementPos.top;               
+      
+      if ($(window).width() > 1199) {
+	      if ($(window).scrollTop() >= (orgElementTop)) {
+	        // scrolled past the original position; now only show the cloned, sticky element.
+	
+	        // Cloned element should always have same left position and width as original element.     
+	        orgElement = $('.original');
+	        coordsOrgElement = orgElement.offset();
+	        leftOrgElement = coordsOrgElement.left;  
+	        widthOrgElement = orgElement.css('width');
+	        $('.cloned').css('left',leftOrgElement+'px').css('top',0).css('width',widthOrgElement).show();
+	        $('.original').css('visibility','hidden');
+	      } else {
+	        // not scrolled past the menu; only show the original menu.
+	        $('.cloned').hide();
+	        $('.original').css('visibility','visible');
+	      }
+       } else {
+    	   $('.cloned').hide();
+    	   $('.original').css('visibility','visible');
+       }
+    }
+     
+    $('.page-position').onePageNav({
+        currentClass: 'current',
+        changeHash: false,
+        scrollSpeed: 750,
+        scrollThreshold: 0.3,
+        filter: '',
+        easing: 'swing',
+        begin: function() {
+            //I get fired when the animation is starting
+        },
+        end: function() {
+        	
+        },
+        scrollChange: function($currentListItem) {
+            //I get fired when you enter a section and I pass the list item of the section
+        }
+    });
+    
+    if ($('.controls-state-icon').hasClass("icon-eye-close")) {
+    	$('.nav-account-controls').addClass("hidden");
+    } 
+
+    $('.toggle-controls-link').on( "click", function() {
+    	if ($('.nav-account-controls').hasClass("hidden")) {
+    		$('.nav-account-controls').removeClass("hidden");
+	    } else {
+	    	$('.nav-account-controls').addClass("hidden");
+	    }	  	  
+    });
+    
+      
+});
+

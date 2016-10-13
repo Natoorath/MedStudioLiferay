@@ -1,0 +1,143 @@
+package pl.com.mds.dokumenty;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.PortletPreferences;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.xml.namespace.QName;
+
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Layout;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portlet.documentlibrary.model.DLFolder;
+import com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil;
+import com.liferay.util.PwdGenerator;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+import com.sun.jmx.snmp.Enumerated;
+
+/**
+ * Portlet implementation class DocumentsControler
+ */
+public class DocumentsControler extends MVCPortlet {
+ 
+	public void sendFilter(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
+		javax.xml.namespace.QName qName = new QName("documents", "empinfo", "x");
+	    
+		String filtr = "";
+		Map<String, String[]> mapaRequest = request.getParameterMap();
+		
+		String titleSearch = request.getParameter("nazwaDokumentu");
+		if (titleSearch != null && !titleSearch.equals("")) {
+			filtr += "tytul" + titleSearch + ", ";
+		} else {
+			filtr += "";
+		}
+		
+		response.setEvent(qName, filtr);
+	    return ;
+	}
+	
+	@Override
+	public void doView(RenderRequest renderRequest,
+			RenderResponse renderResponse) throws IOException, PortletException {
+		
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		long groupId = themeDisplay.getSiteGroupId();
+		PortletPreferences pref = renderRequest.getPreferences();
+		
+		String[] foldersName = pref.getMap().get("foldersName");
+		List<Long> foldersId = new ArrayList<Long>();
+		
+		
+		if (foldersName != null) {
+			for (String folder : Arrays.asList(foldersName[0].split(", "))) {
+				if (folder != null)
+					foldersId.add(Long.valueOf(folder));
+			}
+		}
+		DynamicQuery query = DynamicQueryFactoryUtil.forClass(DLFolder.class, PortletClassLoaderUtil.getClassLoader());
+		query.add(PropertyFactoryUtil.forName("parentFolderId").in(foldersId));
+		query.add(PropertyFactoryUtil.forName("status").eq(0));
+		query.add(PropertyFactoryUtil.forName("repositoryId").eq(groupId));
+
+		List<DLFolder> folders = new ArrayList<DLFolder>();
+		try {
+			folders = DLFolderLocalServiceUtil.dynamicQuery(query);
+		} catch (SystemException e) {
+
+		}
+		
+		StringBuilder folderList = new StringBuilder();
+		
+		folderList.append("<ul class=\"cd-accordion-menu animated\">");
+		for (DLFolder folder : folders) {
+
+			folderList.append(createListForFolder(folder, themeDisplay));
+		}
+		folderList.append("</ul>");
+		renderRequest.setAttribute("folderList", folderList.toString());
+		
+		super.doView(renderRequest, renderResponse);
+	}
+	
+	private String createListForFolder(DLFolder folder, ThemeDisplay themeDisplay) {
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			DynamicQuery querySubFolders = DynamicQueryFactoryUtil.forClass(DLFolder.class, PortletClassLoaderUtil.getClassLoader());
+   			querySubFolders.add(PropertyFactoryUtil.forName("parentFolderId").eq(folder.getFolderId()));
+   			querySubFolders.add(PropertyFactoryUtil.forName("status").eq(0));
+   			querySubFolders.addOrder(OrderFactoryUtil.asc("folderId"));
+   			List<DLFolder> subFolders = DLFolderLocalServiceUtil.dynamicQuery(querySubFolders);
+			
+   			if (subFolders.size() > 0) {
+   				sb.append("<li class=\"has-children\">");
+				String uniqueId = "menu-group-"  + PwdGenerator.getPassword(10);
+				sb.append("<input name=\"" + uniqueId + "\" id=\"" + uniqueId + "\"");
+				sb.append(" type=\"checkbox\"/>");
+				
+				sb.append("<label for=\"" + uniqueId + "\">");
+				
+				sb.append("<a href=\"?folderId=" + folder.getFolderId() + "\"" + "" + "class=\"" + "href-with-childs" + "\" ");
+				sb.append("onclick=\"" + themeDisplay.getPortletDisplay().getNamespace() + "menuHrefClicked(event);\">");
+				sb.append(folder.getName());
+				sb.append("</a></label>");
+				
+				sb.append("<ul>");
+				for(DLFolder subFolder : subFolders) {
+					sb.append(createListForFolder(subFolder, themeDisplay));
+				}
+				sb.append("</ul>");
+   			} else {
+   				sb.append("<li class=\"no-children\">");
+   				sb.append("<a href=?folderId=" + folder.getFolderId() + "\"" + "" + ">" + folder.getName() + "</a>");
+   			}
+			
+			sb.append("</li>");
+			
+			return sb.toString();
+		
+		} catch(Exception e) { 
+			e.printStackTrace();
+		}
+		
+		return "";
+	}	
+}

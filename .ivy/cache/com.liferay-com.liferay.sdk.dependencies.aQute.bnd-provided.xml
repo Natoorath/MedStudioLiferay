@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="com.liferay"
+		module="com.liferay.sdk.dependencies.aQute.bnd"
+		revision="working@ITE-4720S-0B2J"
+		conf="provided"
+		confs="default, internal, provided"
+		date="20160520143051"/>
+	<dependencies>
+	</dependencies>
+</ivy-report>

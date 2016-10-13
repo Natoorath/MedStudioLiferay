@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+   "http://www.w3.org/TR/html4/frameset.dtd">
+<!--
+ * CKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * This page compose the File Browser dialog frameset.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Resources Browser</title>
+		
+				
+					<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+					<meta content="IE=EmulateIE9" http-equiv="X-UA-Compatible">
+				
+			
+		<link href="browser.css" type="text/css" rel="stylesheet">
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript">
+function GetUrlParam( paramName )
+{
+	var oRegex = new RegExp( '[\?&]' + paramName + '=([^&]+)', 'i' ) ;
+	var oMatch = oRegex.exec( window.top.location.search ) ;
+
+	if ( oMatch && oMatch.length > 1 )
+		return decodeURIComponent( oMatch[1] ) ;
+	else
+		return '' ;
+}
+
+window.onload = function() {
+	console.log('startupFolder:' + GetUrlParam('startupFolder'));
+	console.log('currentFolder:' + oConnector.CurrentFolder);
+	if(GetUrlParam('startupFolder') != oConnector.CurrentFolder) {
+		document.getElementById('trUp').style.display = "initial";
+	} else {
+		document.getElementById('trUp').style.display = "none";
+	}
+}
+		</script>
+	</head>
+	<body style="background: #FFF;">
+		<table cellspacing="1" cellpadding="0" width="100%" border="0">
+			<tr id="trUp">
+				<td width="16"><a id="linkUpIcon" href="#"><img alt="" src="images/FolderUp.gif" width="16" height="16" border="0"></a></td>
+				<td nowrap width="100%">&nbsp;<a id="linkUp" href="#">..</a></td>
+			</tr>
+		</table>
+	</body>
+</html>

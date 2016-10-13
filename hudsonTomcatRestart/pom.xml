@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>pl.com.mds.liferay</groupId>
+	<version>1.0-SNAPSHOT</version>
+	<artifactId>server-restart</artifactId>
+	<name>server-restart</name>
+	<url>http://maven.apache.org</url>
+	<profiles>
+		<profile>
+			<id>server-restart-show</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.6</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.ant</groupId>
+								<artifactId>ant-jsch</artifactId>
+								<version>1.8.4</version>
+							</dependency>
+						</dependencies>
+						<executions>
+							<execution>
+								<id>server-restart-show</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="javac.compiler" value="modern" />
+										<property name="javac.fork" value="true" />
+										<property name="app.server.lib.portal.dir" value="../../externals/portal/WEB-INF/lib" />
+										<property name="app.server.lib.global.dir" value="../../externals/lib" />
+										<property name="app.server.portal.dir" value="../../externals/portal" />
+										<property name="javac.executable"
+											value="C:\Program Files\Java\jdk1.7.0_80\bin\javac" />
+										<ant antfile="${basedir}/build.xml" target="restartSHOW" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

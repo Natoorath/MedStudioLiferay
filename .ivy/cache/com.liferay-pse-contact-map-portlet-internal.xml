@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="com.liferay"
+		module="pse-contact-map-portlet"
+		revision="working@Krzysiek"
+		conf="internal"
+		confs="default, internal, provided, runtime, test"
+		date="20160906223527"/>
+	<dependencies>
+	</dependencies>
+</ivy-report>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<servers>
+  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/Liferay v6.2 CE Server (Tomcat 7) at localhost-config" hostname="localhost" id="Liferay v6.2 CE Server (Tomcat 7) at localhost" name="Liferay v6.2 CE Server (Tomcat 7) at localhost" runtime-id="Liferay v6.2 CE (Tomcat 7)" saveSeparateContextFiles="false" server-type="com.liferay.ide.eclipse.server.tomcat.7062" server-type-id="com.liferay.ide.eclipse.server.tomcat.7062" serverMode="1" start-timeout="900" stop-timeout="300" testEnvironment="false" timestamp="25">
+    <list key="modules"/>
+  </server>
+  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/MedStudio-config" hostname="localhost" id="MedStudio" name="MedStudio" runtime-id="MedStudio" saveSeparateContextFiles="false" server-type="com.liferay.ide.eclipse.server.tomcat.7062" server-type-id="com.liferay.ide.eclipse.server.tomcat.7062" start-timeout="900" stop-timeout="300" testEnvironment="false" timestamp="13">
+    <list key="modules" value0="medStudio-welcome::org.eclipse.jst.jee.server:medStudio-welcome::jst.web::3.0" value1="welcome-theme::org.eclipse.jst.jee.server:welcome-theme::jst.web::3.0" value2="portal-hook::org.eclipse.jst.jee.server:portal-hook::jst.web::3.0"/>
+  </server>
+</servers>

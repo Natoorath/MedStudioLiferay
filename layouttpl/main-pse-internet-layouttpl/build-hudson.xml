@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project name="main-pse-internet-layouttpl" basedir="." default="deploy">
+	<property file="../../build-hudson.properties"/>
+	<property name="plugin.version" value="1" />
+	<import file="../build-common-layouttpl.xml" />
+	<target name="main-pse-internet-layouttpl-deploy-show" description="Uploading war to server" depends="war">
+		<scp file="${sdk.dir}/dist/${plugin.name}-${plugin.full.version}.war" trust="true" verbose="true" sftp="true" port="${server.show.port}" todir="${server.show.username}@${server.show.host}:${server.show.path}/${plugin.name}-${plugin.full.version}.war" password="${server.show.password}" />
+	</target>
+</project>

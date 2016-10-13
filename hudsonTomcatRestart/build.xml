@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project name="tomcatRestart" basedir="." default="empty">
+	<property file="../build-hudson.properties" />
+	<target name="empty" description="Doing nothing"></target>
+	<target name="restartSHOW" description="Restarting server">
+		<sshexec host="${server.show.host}" port="${server.show.port}" username="${server.show.username}" trust="true" verbose="true" password="${server.show.password}" command="${server.show.stop}" />
+		<sleep seconds="30"/>
+		<sshexec host="${server.show.host}" port="${server.show.port}" username="${server.show.username}" trust="true" verbose="true" password="${server.show.password}" command="${server.show.start}" />
+	</target>
+</project>

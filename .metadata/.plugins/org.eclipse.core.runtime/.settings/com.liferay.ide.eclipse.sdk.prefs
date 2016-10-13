@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+sdks=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<sdks default\="MedStudio2">\r\n<sdk location\="D\:/PSE_Internet" name\="PSE_Internet" version\="6.2.0"/>\r\n<sdk location\="D\:/PSE_Intranet" name\="PSE_Intranet" version\="6.2.0"/>\r\n<sdk location\="C\:/Users/Savek/Desktop/Praca/liferay-plugins-sdk-6.2" name\="liferay-plugins-sdk-6.2"/>\r\n<sdk location\="D\:/MedStudio/MedStudio/liferay-plugins-sdk-6.2" name\="MedStudio" version\="6.2.0"/>\r\n<sdk location\="D\:/MedStudio/liferay-plugins-sdk-6.2" name\="MedStudio2" version\="6.2.0"/>\r\n</sdks>

@@ -1,0 +1,20 @@
+package pl.com.mds.dokumenty;
+
+import com.liferay.util.bridges.mvc.MVCPortlet;
+
+/**
+ * Portlet implementation class DocumentsPortlet
+ */
+public class DocumentsPortlet extends MVCPortlet {
+	
+	@javax.portlet.ProcessEvent(qname = "{documents}empinfo")
+    public void handleProcessempinfoEvent(javax.portlet.EventRequest request, javax.portlet.EventResponse response) 
+                throws javax.portlet.PortletException, java.io.IOException {
+                
+        javax.portlet.Event event = request.getEvent();
+        String value = (String) event.getValue();
+        System.out.println(value);
+        response.setRenderParameter("typeFilter", value);
+    }
+
+}

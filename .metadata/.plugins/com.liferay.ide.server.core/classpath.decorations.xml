@@ -1,0 +1,25 @@
+<classpath>
+  <container id="test-hook!com.liferay.ide.eclipse.server.plugin.container/hook">
+    <entry id="D:/MedStudio/tomcat/liferay-portal-6.2-ce-ga5/tomcat-7.0.62/webapps/ROOT/WEB-INF/lib/commons-logging.jar">
+      <attribute name="javadoc_location"></attribute>
+    </entry>
+    <entry id="D:/MedStudio/tomcat/liferay-portal-6.2-ce-ga5/tomcat-7.0.62/webapps/ROOT/WEB-INF/lib/struts-el.jar">
+      <attribute name="javadoc_location"></attribute>
+    </entry>
+    <entry id="D:/MedStudio/tomcat/liferay-portal-6.2-ce-ga5/tomcat-7.0.62/webapps/ROOT/WEB-INF/lib/log4j.jar">
+      <attribute name="javadoc_location"></attribute>
+    </entry>
+    <entry id="D:/MedStudio/tomcat/liferay-portal-6.2-ce-ga5/tomcat-7.0.62/webapps/ROOT/WEB-INF/lib/util-taglib.jar">
+      <attribute name="javadoc_location"></attribute>
+    </entry>
+    <entry id="D:/MedStudio/tomcat/liferay-portal-6.2-ce-ga5/tomcat-7.0.62/webapps/ROOT/WEB-INF/lib/util-bridges.jar">
+      <attribute name="javadoc_location"></attribute>
+    </entry>
+    <entry id="D:/MedStudio/tomcat/liferay-portal-6.2-ce-ga5/tomcat-7.0.62/webapps/ROOT/WEB-INF/lib/struts.jar">
+      <attribute name="javadoc_location"></attribute>
+    </entry>
+    <entry id="D:/MedStudio/tomcat/liferay-portal-6.2-ce-ga5/tomcat-7.0.62/webapps/ROOT/WEB-INF/lib/util-java.jar">
+      <attribute name="javadoc_location"></attribute>
+    </entry>
+  </container>
+</classpath>

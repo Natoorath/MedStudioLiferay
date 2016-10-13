@@ -1,0 +1,48 @@
+package pl.com.mds.dokumenty;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.documentlibrary.model.DLFileEntry;
+import com.liferay.portlet.documentlibrary.model.DLFolder;
+import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil;
+
+public class DocumentsLocalServiceUtil {
+	
+	
+	public static List<DLFileEntry> getContentOfFolderAndSubfolders(Long folderId, ThemeDisplay themeDisplay) throws SystemException {
+		List<DLFileEntry> filesList = new ArrayList<DLFileEntry>();
+		
+		DynamicQuery filesQuery = DynamicQueryFactoryUtil.forClass(DLFileEntry.class, PortletClassLoaderUtil.getClassLoader());
+		filesQuery.add(PropertyFactoryUtil.forName("folderId").eq(folderId));
+		filesList = DLFileEntryLocalServiceUtil.dynamicQuery(filesQuery);
+		
+		DynamicQuery subFoldersQuery = DynamicQueryFactoryUtil.forClass(DLFolder.class, PortletClassLoaderUtil.getClassLoader());
+		subFoldersQuery.add(PropertyFactoryUtil.forName("parentFolderId").eq(folderId));
+		subFoldersQuery.add(PropertyFactoryUtil.forName("status").eq(0));
+		subFoldersQuery.add(PropertyFactoryUtil.forName("repositoryId").eq(Long.valueOf(themeDisplay.getScopeGroupId())));
+		List<DLFolder> subFolders = DLFolderLocalServiceUtil.dynamicQuery(subFoldersQuery);
+		
+		for (DLFolder folder : subFolders) {
+			filesList.clear();
+			filesList.addAll(getContentOfFolderAndSubfolders(folder.getFolderId(), themeDisplay));
+		}
+		
+		return filesList;
+		
+	}
+
+}

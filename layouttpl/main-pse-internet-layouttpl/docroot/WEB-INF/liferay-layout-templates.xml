@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE layout-templates PUBLIC "-//Liferay//DTD Layout Templates 6.2.0//EN" "http://www.liferay.com/dtd/liferay-layout-templates_6_2_0.dtd">
+
+<layout-templates>
+	<custom>
+		<layout-template id="main_pse_internet"
+			name="Main Pse Internet">
+			<template-path>/main_pse_internet.tpl</template-path>
+			<wap-template-path>
+				/main_pse_internet.wap.tpl
+			</wap-template-path>
+			<thumbnail-path>/main_pse_internet.png</thumbnail-path>
+		</layout-template>
+		<layout-template id="template21" name="template-2-1">
+			<template-path>/template21.tpl</template-path>
+			<wap-template-path>/template21.wap.tpl</wap-template-path>
+			<thumbnail-path>/template21.png</thumbnail-path>
+		</layout-template>
+		<layout-template id="contactmaplayout"
+			name="contact-map-layout">
+			<template-path>/contactmaplayout.tpl</template-path>
+			<wap-template-path>
+				/contactmaplayout.wap.tpl
+			</wap-template-path>
+			<thumbnail-path>/contactmaplayout.png</thumbnail-path>
+		</layout-template>
+		<layout-template id="consultationglayout"
+			name="consultationgLayout">
+			<template-path>/consultationglayout.tpl</template-path>
+			<wap-template-path>
+				/consultationglayout.wap.tpl
+			</wap-template-path>
+			<thumbnail-path>/consultationglayout.png</thumbnail-path>
+		</layout-template>
+		<layout-template id="sitemaplayout" name="sitemaplayout">
+			<template-path>/sitemaplayout.tpl</template-path>
+			<wap-template-path>
+				/sitemaplayout.wap.tpl
+			</wap-template-path>
+			<thumbnail-path>/sitemaplayout.png</thumbnail-path>
+		</layout-template>
+	</custom>
+</layout-templates>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.dao.orm.DynamicQuery"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.portlet.PortletClassLoaderUtil"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil"/>
+<fullyQualifiedTypeName name="com.liferay.portal.util.comparator.GroupIdComparator"/>
+<fullyQualifiedTypeName name="com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="com.liferay.portlet.documentlibrary.model.DLFolder"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.exception.SystemException"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.dao.orm.Order"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.dao.orm.OrderFactoryUtil"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+</qualifiedTypeNameHistroy>
