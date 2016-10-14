@@ -1,6 +1,12 @@
 @CHARSET "UTF-8";
-body {
-	background-color: #253B46; 
+.aui {
+	height: 100%;
+}
+
+.aui body {
+	background-color: #253B46;
+	margin: 0;
+	height: 100%;
 }
 
 .container h3 {
@@ -53,10 +59,25 @@ body {
 	border-top-right-radius: 0 !important;
 }
 
-.container .login-form label {
+.container .login-form .input-text-wrapper label {
 	margin: 10px auto;
 	margin-left: 10%;
 	cursor: pointer;
+	display: none
+}
+
+.container .button-holder {
+	margin-top: 0px;
+}
+
+.container .login-form .input-checkbox-wrapper label {
+	margin: 10px auto;
+	margin-left: 10%;
+	cursor: pointer;
+}
+
+.container .login-form .input-text-wrapper {
+	margin: 0;
 }
 
 .container .login-form input[type="checkbox"] {
@@ -75,7 +96,8 @@ body {
 }
 
 .container .login-footer {
-	text-align: center;	
+	text-align: center;
+	position: relative;
 }
 
 .container .login-footer label {
@@ -83,6 +105,10 @@ body {
 	font-weight: bold;
 	color: #000;
 	opacity: 0.3;
+	width: 120px;
+	left: calc(50% - 60px);
+	top: 100px;
+	position: absolute;
 }
 
 .container .login-footer img {
@@ -91,9 +117,11 @@ body {
 	width: 70px;
 	height: 70px;
 	opacity: 0.4;
+	position: absolute;
+	left: calc(50% - 35px);
 }
 
-.btn {
+.aui .btn {
 	background: #58a554 none repeat scroll 0 0;
     border: 1px solid #58a554;
     border-radius: 5px;
@@ -103,11 +131,21 @@ body {
     height: 40px;
     margin: 10px auto;
     width: 80%;
+    box-shadow: none;
 }
 
-.btn:hover {
+.aui .btn:hover {
 	background: #64b160;
 	color: #fff;
+	border: none;
+	box-shadow: none;
+}
+
+.aui .btn:focus, .aui .btn:active {
+	background: #4c7b4a;
+	color: #fff;
+	border: none;
+	box-shadow: none;
 }
 
 .shadow-div {

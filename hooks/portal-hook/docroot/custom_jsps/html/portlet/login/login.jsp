@@ -61,55 +61,6 @@
 			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 			<aui:input name="doActionAfterLogin" type="hidden" value="<%= portletName.equals(PortletKeys.FAST_LOGIN) ? true : false %>" />
 
-			<c:choose>
-				<c:when test='<%= SessionMessages.contains(request, "userAdded") %>'>
-
-					<%
-					String userEmailAddress = (String)SessionMessages.get(request, "userAdded");
-					String userPassword = (String)SessionMessages.get(request, "userAddedPassword");
-					%>
-
-					<div class="alert alert-success">
-						<c:choose>
-							<c:when test="<%= company.isStrangersVerify() || Validator.isNull(userPassword) %>">
-								<%= LanguageUtil.get(pageContext, "thank-you-for-creating-an-account") %>
-
-								<c:if test="<%= company.isStrangersVerify() %>">
-									<%= LanguageUtil.format(pageContext, "your-email-verification-code-has-been-sent-to-x", userEmailAddress) %>
-								</c:if>
-							</c:when>
-							<c:otherwise>
-								<%= LanguageUtil.format(pageContext, "thank-you-for-creating-an-account.-your-password-is-x", userPassword, false) %>
-							</c:otherwise>
-						</c:choose>
-
-						<c:if test="<%= PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.ADMIN_EMAIL_USER_ADDED_ENABLED) %>">
-							<%= LanguageUtil.format(pageContext, "your-password-has-been-sent-to-x", userEmailAddress) %>
-						</c:if>
-					</div>
-				</c:when>
-				<c:when test='<%= SessionMessages.contains(request, "userPending") %>'>
-
-					<%
-					String userEmailAddress = (String)SessionMessages.get(request, "userPending");
-					%>
-
-					<div class="alert alert-success">
-						<%= LanguageUtil.format(pageContext, "thank-you-for-creating-an-account.-you-will-be-notified-via-email-at-x-when-your-account-has-been-approved", userEmailAddress) %>
-					</div>
-				</c:when>
-			</c:choose>
-
-			<liferay-ui:error exception="<%= AuthException.class %>" message="authentication-failed" />
-			<liferay-ui:error exception="<%= CompanyMaxUsersException.class %>" message="unable-to-login-because-the-maximum-number-of-users-has-been-reached" />
-			<liferay-ui:error exception="<%= CookieNotSupportedException.class %>" message="authentication-failed-please-enable-browser-cookies" />
-			<liferay-ui:error exception="<%= NoSuchUserException.class %>" message="authentication-failed" />
-			<liferay-ui:error exception="<%= PasswordExpiredException.class %>" message="your-password-has-expired" />
-			<liferay-ui:error exception="<%= UserEmailAddressException.class %>" message="authentication-failed" />
-			<liferay-ui:error exception="<%= UserLockoutException.class %>" message="this-account-has-been-locked" />
-			<liferay-ui:error exception="<%= UserPasswordException.class %>" message="authentication-failed" />
-			<liferay-ui:error exception="<%= UserScreenNameException.class %>" message="authentication-failed" />
-
 			<aui:fieldset>
 
 				<%
@@ -126,8 +77,14 @@
 				}
 				%>
 				<h3>Login</h3>
-				<input id = '_58_login' type="text" placeholder="Login" class="input-top">
-				<input id='_58_password' type="password" placeholder="Password"  class="input-bottom">
+
+				<aui:input placeholder="Login" cssClass="input-top" name="login" showRequiredLabel="<%= false %>" type="text" value="<%= login %>">
+
+				</aui:input>
+
+				<aui:input name="password" showRequiredLabel="<%= false %>" placeholder="Password" type="password" value="<%= password %>" cssClass="input-bottom">
+
+				</aui:input>
 				
 				<span id="<portlet:namespace />passwordCapsLockSpan" style="display: none;"><liferay-ui:message key="caps-lock-is-on" /></span>
 

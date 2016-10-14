@@ -1,1 +1,3 @@
-#set ($css_class = "${css_class} dockbar-split")
+#*
+This file allows you to override and define new Velocity variables.
+*#
