@@ -18,25 +18,9 @@
 
 <c:choose>
 	<c:when test="<%= themeDisplay.isSignedIn() %>">
-
-		<%
-		String signedInAs = HtmlUtil.escape(user.getFullName());
-
-		if (themeDisplay.isShowMyAccountIcon() && (themeDisplay.getURLMyAccount() != null)) {
-			String myAccountURL = String.valueOf(themeDisplay.getURLMyAccount());
-
-			if (PropsValues.DOCKBAR_ADMINISTRATIVE_LINKS_SHOW_IN_POP_UP) {
-				signedInAs = "<a class=\"signed-in\" href=\"javascript:Liferay.Util.openWindow({dialog: {destroyOnHide: true}, title: '" + HtmlUtil.escapeJS(LanguageUtil.get(pageContext, "my-account")) + "', uri: '" + HtmlUtil.escapeJS(myAccountURL) + "'});\">" + signedInAs + "</a>";
-			}
-			else {
-				myAccountURL = HttpUtil.setParameter(myAccountURL, "controlPanelCategory", PortletCategoryKeys.MY);
-
-				signedInAs = "<a class=\"signed-in\" href=\"" + HtmlUtil.escape(myAccountURL) + "\">" + signedInAs + "</a>";
-			}
-		}
-		%>
-
-		<%= LanguageUtil.format(pageContext, "you-are-signed-in-as-x", signedInAs, false) %>
+		<script>
+			window.location.href = "/logged";
+		</script>
 	</c:when>
 	<c:otherwise>
 

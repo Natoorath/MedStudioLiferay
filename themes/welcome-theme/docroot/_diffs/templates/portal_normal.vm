@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+#parse ($init)
+
+<html class="$root_css_class" dir="#language ("lang.dir")" lang="$w3c_language_id">
+
+<head>
+	<title>$the_title - $company_name</title>
+
+	<meta content="initial-scale=1.0, width=device-width" name="viewport" />
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta id="viewport-meta" name="viewport" content="width=device-width, initial-scale=1">
+    
+    $theme.include($top_head_include)
+	
+	#js("$javascript_folder/jquery.js")
+	#js("$javascript_folder/bootstrap.js")
+	#js("$javascript_folder/bootstrap.min.js")
+	
+</head>
+
+<body class="$css_class">
+
+#set($homeURL = $themeDisplay.getPathFriendlyURLPublic() + $themeDisplay.getScopeGroup().getFriendlyURL())
+
+<a href="#main-content" id="skip-to-content">#language ("skip-to-content")</a>
+
+$theme.include($body_top_include)
+
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top affix shadow-div">
+	<div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		    </button>
+		</div>
+		
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+		    <ul class="nav navbar-nav navbar-right">
+		        <li class="">
+		            <a class="page-scroll" href="#about">About</a>
+		        </li>
+		        <li class="">
+		            <a class="page-scroll" href="#services">Four Icons</a>
+		        </li>
+		        <li class="">
+		            <a class="page-scroll" href="#team">Team</a>
+		        </li>
+		        <li class="">
+		            <a class="page-scroll" href="/login">Login</a>
+		        </li>
+		    </ul>
+		</div>
+	<!-- /.navbar-collapse -->
+	</div>
+<!-- /.container-fluid -->
+</nav>
+
+<header>
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h1>MedStudio</h1>
+			<img alt="logo" src="$images_folder/heart.png">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        	<i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </div>
+    </div>
+</header>
+<section class="bg-primary" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Want to make an original website yourself?</h2>
+                
+                <p class="text-faded">Forget that! Who would ever want to put in all of that effort for a website? Just open up your web browser and type "bootstrap template" into your favorite search engine, like Yahoo! or Bing, and you're on your way! There are hundreds of templates to choose from, but go ahead and pick this same exact template from the first result on google, edit a few lines, and you're on your way! No one will notice!</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="services">
+	<div class="container">
+	    <div class="row">
+	        <div class="col-lg-12 text-center">
+	            <h2 class="section-heading">Lorem ipsum</h2>
+	            <hr class="primary">
+	        </div>
+	    </div>
+	</div>
+	<div class="container">
+	    <div class="row">
+	        <div class="col-lg-3 col-md-6 text-center">
+	            <div class="service-box">
+	                <i class="fa fa-4x fa-globe wow bounceIn text-primary" style="visibility: visible; animation-name: bounceIn;"></i>
+	                <h3>This Fucking Template</h3>
+	                <p class="text-muted">Guaranteed to use the same fucking template that every other bootstrap website uses, downloaded straight from The Web&trade;</p>
+	            </div>
+	        </div>
+	        <div class="col-lg-3 col-md-6 text-center">
+	            <div class="service-box">
+	                <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: bounceIn;"></i>
+	                <h3>This Set of Four Icons</h3>
+	                <p class="text-muted">Look at this cool set of four icons describing different things about us! We use four, because it's the default.</p>
+	            </div>
+	        </div>
+	        <div class="col-lg-3 col-md-6 text-center">
+	            <div class="service-box">
+	                <i class="fa fa-4x fa-thumbs-up wow bounceIn text-primary" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: bounceIn;"></i>
+	                <h3>Lots of effort</h3>
+	                <p class="text-muted">We even changed some of the icons! We take the extra effort to make our designs truly original.</p>
+	            </div>
+	        </div>
+	        <div class="col-lg-3 col-md-6 text-center">
+	            <div class="service-box">
+	                <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: bounceIn;"></i>
+	                    <h3>Made with Love</h3>
+	                    <p class="text-muted">Because nothing says hard work and talent like editing a few lines of text.</p>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+</section>
+<section class="bg-primary" id="team">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 text-center">
+			    <h2 class="section-heading">Team</h2>
+			    <hr>
+				<div class="row">
+				    <div class="col-md-6">
+				        <div class="member">
+				            <img src="$images_folder/teamPhoto.jpg" class="img-responsive img-circle" alt="">
+				            <h4>Maj Mateusz</h4>
+				            <p class="text-muted">Feeder & Noob</p>
+				            <ul class="list-inline social-buttons">
+				                <li><a href="#"><i class="fa fa-twitter"></i></a>
+				                </li>
+				                <li><a href="#"><i class="fa fa-facebook"></i></a>
+				                </li>
+				                <li><a href="#"><i class="fa fa-linkedin"></i></a>
+				                </li>
+				            </ul>
+				        </div>
+				    </div>
+				    <div class="col-md-6">
+				        <div class="member">
+				            <img src="$images_folder/teamPhoto.jpg" class="img-responsive img-circle" alt="">
+				            <h4>Krzysztof Mazur</h4>
+				            <p class="text-muted">Lead Designer</p>
+				            <ul class="list-inline social-buttons">
+				                <li><a href="#"><i class="fa fa-twitter"></i></a>
+				                </li>
+				                <li><a href="#"><i class="fa fa-facebook"></i></a>
+				                </li>
+				                <li><a href="#"><i class="fa fa-linkedin"></i></a>
+				                </li>
+				            </ul>
+				        </div>
+				    </div>
+				</div>
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <span class="copyright">Copyright &copy; Your Website 2016</span>
+            </div>
+            
+            <div class="col-md-6">
+                <ul class="list-inline quicklinks">
+                    <li><a href="#">Privacy Policy</a>
+                    </li>
+                    <li><a href="#">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+$theme.include($body_bottom_include)
+
+$theme.include($bottom_include)
+
+</body>
+
+</html>
